@@ -1,0 +1,248 @@
+{% extends "DC/base2.html" %}
+
+{% block title_block %}
+    {{current_class.className}}
+{% endblock title_block %}
+
+{% block body_block %}
+<style>
+    .container2 {
+        position: absolute;
+        top: 80px;
+        height: 260px;
+        width: 100%;
+        background-image: url('https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/308-name06012-ake.jpg?con=3&dpr=1.5&fm=jpg&ixlib=php-1.1.0&mark=rawpixel-watermark.png&markalpha=90&markpad=13&markscale=10&markx=25&q=60&usm=15&vib=3&w=1600&s=af74743b520358d22c3c94fa5c53e295');
+        background-repeat: no-repeat;
+    }
+    .container2 p{
+        position: absolute;
+        left: 640px;
+        top: 160px;
+        color: white;
+    }
+    li {
+        list-style-type:none
+    }
+    .container2 h3{
+        position: absolute;
+        left: 600px;
+        top: 120px;
+        color: white;
+    }
+    .content-container{
+        position: absolute;
+        background-color: white;
+        top: 88px;
+        left: 400px;
+        width: 600px;
+    }
+    .my-class-container{
+			position: absolute;
+			background-color: #EAECEE;
+			left: 70px;
+			top: 88px;
+			font-size: 12px;
+			border-radius: 2px;
+			width: 270px;
+		}
+    .my-class-container a{
+        color: black;
+        text-decoration: none;
+        border-left: 3px solid #2E4053;
+        padding-left: 2px;
+    }
+    .add-button {
+        position: absolute;
+        top: 600px;
+        left: 1000px;
+    }
+    .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+
+        /* Position the tooltip text - see examples below! */
+        position: absolute;
+        z-index: 1;
+        top: 48px;
+    }
+    .add-button:hover .tooltiptext {
+        visibility: visible;
+    }
+    .add-button:active .tooltiptext {
+        visibility: hidden;
+    }
+    input[type=text] {
+        position: absolute;
+        top: 4px;
+        left: 2px;
+        width: 600px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 18px;
+        font-size: 12px;
+        background-color: white;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        padding: 12px 20px 12px 40px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+    }
+    .searchicon {
+        position: absolute;
+        right: 0px;
+        top: 20px;
+    }
+    .btn-container2 {
+        position: absolute;
+        top: 58px;
+        right: 20px;
+    }
+    .btn-container3 {
+        position: absolute;
+    }
+    .btn-container {
+        position: absolute;
+        top: 68px;
+        right: 20px;
+    }
+</style>
+
+<!-- MAIN BODY -->
+<div class="content-container" style=" background-color: #e8f0fe;">
+    <!-- SEARCH BAR -->
+    <div >
+        <form class="form-inline" style="border-radius: 18px;">
+            <div class="searchbox" style="border-radius: 18px;">
+                <input type="text" name="search" placeholder="Search posts and resources.." class="search-input" style="border-radius: 18px;">
+                <ion-icon class="searchicon" name="search"></ion-icon>
+            </div>
+        </form>
+    </div>
+
+    <!-- MAIN BODY -->
+    <div class="card text-center" style="top: 68px;">
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" href="#" id="resources" classrelated="{{ current_class.id }}" view_id="1">Resources</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" id="students" classrelated="{{ current_class.id }}" view_id="2">Students</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" id="assignments" classrelated="{{ current_class.id }}" view_id="2">My Profile</a>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body">
+
+      </div>
+    </div>
+</div>
+
+<!-- SIDE DIVS -->
+<div class="my-class-container" style="background-color: #e8f0fe;">
+    <div class="card" style="width: 18rem;">
+      <div class="card-header">
+        Assignments
+      </div>
+      <ul class="list-group list-group-flush">
+        {% for ass in assignments %}
+            <li class="list-group-item"><a href="/assignment/handin/{{ass.id}}/">{{ass.title}} due: {{ass.due_date}}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <button id="btnshow" type="button" class="btn btn-secondary btn-lg btn-block" style="position: relative; top: 20px;">My Classes</button>
+    <div id="toggleview" class="card" style="width: 18rem; top: 20px;">
+      <div class="card-header">
+        Classes i'm enrolled to:
+      </div>
+      <ul class="list-group list-group-flush">
+          {% for class in user_classes %}
+          <li class="list-group-item"><a href="{% url 'homecontext' class.id %}">{{ class.className }}</a></li>
+          {% endfor %}
+      </ul>
+    </div>
+    <a href="{% url 'middle' %}"><button id="btnshow2" type="button" class="btn btn-secondary btn-lg btn-block" style="position: relative; top: 20px;">
+        Enroll/Create Class
+    </button></a>
+</div>
+
+<!-- ADD BUTTON -->
+{% if loaded %}
+{% else %}
+<div class="add-button">
+    <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle avatar" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false">
+        <button class="w3-button w3-circle w3-teal">
+            <span class="tooltiptext">Add Resources</span>
+            +
+        </button>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+      <a class="dropdown-item" href="/post/newpost/{{ class_id }}/">New Post</a>
+      <a class="dropdown-item" href="/files/newfile/{{ class_id }}/0/">New Resource</a>
+      <a class="dropdown-item" href="/classes/middle/">Enroll/Create Class</a>
+    </div>
+</li>
+</div>
+{% endif %}
+{% endblock body_block %}
+
+{% block script_block %}
+<script>
+    $('#resources').click(
+            function(){
+                $("#resources").addClass("active");
+                $("#students").removeClass("active");
+                $("#assignments").removeClass("active");
+                var catid = $(this).attr("classrelated");
+                $.get('/resources/' + catid + '/', function(data, status){
+                    $('.card-body').html(data.content);
+                })
+            })
+    $('#students').click(
+            function(){
+                $("#resources").removeClass("active");
+                $("#students").addClass("active");
+                $("#assignments").removeClass("active");
+                var catid = $(this).attr("classrelated");
+                $.get('/class/users/' + catid + '/', function(data, status){
+                    $('.card-body').html(data.content);
+                })
+             })
+    $('#assignments').click(
+            function(){
+                $("#resources").removeClass("active");
+                $("#students").removeClass("active");
+                $("#assignments").addClass("active");
+                $.get('/UserInfo/', function(data, status){
+                    $('.card-body').html(data.content);
+                })
+            })
+    $('#students').click(
+            function(){
+                $("#resources").removeClass("active");
+                $("#students").addClass("active");
+             })
+
+    $('#btnshow').click(
+            function(){
+                $("#toggleview").toggle();
+            })
+    $('#btnshow2').click(
+            function(){
+                $("#toggleview3").toggle();
+            })
+    $('#btnshow3').click(
+            function(){
+                $("#toggleview5").toggle();
+            })
+</script>
+{% endblock script_block %}

@@ -1,0 +1,167 @@
+{% extends "DC/base2.html" %}
+
+{% block title_block %}
+    {{current_class.className}}
+{% endblock title_block %}
+
+{% block body_block %}
+<style>
+    .container2 {
+        position: absolute;
+        top: 80px;
+        height: 260px;
+        width: 100%;
+        background-image: url('https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/308-name06012-ake.jpg?con=3&dpr=1.5&fm=jpg&ixlib=php-1.1.0&mark=rawpixel-watermark.png&markalpha=90&markpad=13&markscale=10&markx=25&q=60&usm=15&vib=3&w=1600&s=af74743b520358d22c3c94fa5c53e295');
+        background-repeat: no-repeat;
+    }
+    .container2 p{
+        position: absolute;
+        left: 640px;
+        top: 160px;
+        color: white;
+    }
+    li {
+        list-style-type:none
+    }
+    .container2 h3{
+        position: absolute;
+        left: 600px;
+        top: 120px;
+        color: white;
+    }
+    .container2 button{
+    }
+    .content-container{
+        position: absolute;
+        background-color: white;
+        top: 380px;
+        left: 400px;
+        width: 600px;
+    }
+    .my-class-container{
+			position: absolute;
+			background-color: #EAECEE;
+			left: 70px;
+			top: 380px;
+			box-shadow: 0 0.2rem 0.4rem rgba(0,0,0,0.23);
+			font-size: 12px;
+			border-radius: 2px;
+			width: 270px;
+		}
+    .my-class-container a{
+        color: black;
+        text-decoration: none;
+        border-left: 3px solid #2E4053;
+        padding-left: 2px;
+    }
+    .add-button {
+        position: absolute;
+        top: 600px;
+        left: 930px;
+    }
+    .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+
+        /* Position the tooltip text - see examples below! */
+        position: absolute;
+        z-index: 1;
+        top: 48px;
+    }
+    .add-button:hover .tooltiptext {
+        visibility: visible;
+    }
+    .add-button:active .tooltiptext {
+        visibility: hidden;
+    }
+</style>
+<!-- Cover Image -->
+<div class="container2">
+    <div>
+        <h3>{{ current_class.className }}</h3>
+        <p>{{ user.username }}</p>
+        <a href="/home/{{ class_id }}/"><button type="button" class="btn btn-primary btn-block">View The Class</button></a>
+    </div>
+</div>
+
+<!-- MAIN BODY -->
+<div class="content-container">
+    <div class="card text-center">
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" href="#" id="resources" classrelated="{{ current_class.id }}" view_id="1">Resources</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" id="students" classrelated="{{ current_class.id }}" view_id="2">Students</a>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body">
+
+      </div>
+    </div>
+</div>
+<!-- SIDE DIVS -->
+<div class="my-class-container">
+    <div class="card" style="width: 18rem;">
+      <div class="card-header">
+        Latest Posts
+      </div>
+      <ul class="list-group list-group-flush">
+        {% for posts in class_posts %}
+            <li class="list-group-item"><a href=#>{{posts.title}}</a></li>
+        {% endfor %}
+        {% for resource in class_resources %}
+          {% if resource.assignments %}
+          {% else %}
+            <li class="list-group-item"><a href=#>{{resource.name|truncatechars:15}}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="card" style="width: 18rem; top: 20px;">
+      <div class="card-header">
+        Assignments
+      </div>
+      <ul class="list-group list-group-flush">
+        {% for ass in assignments %}
+            <li class="list-group-item"><a href=#>{{ass.title}}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script_block %}
+<script>
+    $('#resources').click(
+            function(){
+            $("#resources").addClass("active");
+            $("#students").removeClass("active");
+               var catid = $(this).attr("view_id");
+               var catid2 = $(this).attr("classrelated");
+               $.get('/home/' + catid2 + '/' + 'body/' + catid + '/', function(data, status){
+                    $('.card-body').html(data.content);
+                })
+            }
+        )
+    $('#students').click(
+            function(){
+            $("#resources").removeClass("active");
+            $("#students").addClass("active");
+               var catid = $(this).attr("view_id");
+               var catid2 = $(this).attr("classrelated");
+               $.get('/home/' + catid2 + '/' + 'body/' + catid + '/', function(data, status){
+                    $('.card-body').html(data.content);
+                })
+            }
+        )
+</script>
+{% endblock script_block %}

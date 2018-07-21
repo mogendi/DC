@@ -1,0 +1,25 @@
+{% extends "DC/base.html" %}
+{% block body_block %}
+<br><br><br><br>
+<h1 class="titley">Class Enroll</h1>
+<form class="jumbotron" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="chooseClass">Select a class:</label>
+        <select class="form-control" id="chooseClass" name="chosen">
+
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Enroll</button>
+</form>
+{% endblock body_block %}
+
+{% block script_block %}
+<script>
+    var editor = new MediumEditor('.editable');
+    $.get('/allclasses/',
+        function(data){
+            $('#chooseClass').html(data.content);
+        })
+</script>
+{% endblock script_block %}

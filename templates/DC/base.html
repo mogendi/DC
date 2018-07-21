@@ -1,0 +1,112 @@
+<!DOCTYPE html> {% load staticfiles %}
+<html>
+
+<head>
+
+
+    <title>
+        {% block title_block %} {% endblock title_block %}
+    </title>
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+    <!--Medium Editor-->
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css"
+        media="screen" charset="utf-8">
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Slabo+27px" rel="stylesheet">
+
+
+    <style>
+        .navbar-nav ml-auto cus{
+            text-align: right;
+            position: absolute;
+            left: 600px;
+        }
+        .nav {
+            background-color: #DCDCDC;
+        }
+        .dropdown{
+            position: absolute;
+            right: 120px;
+            top: 12px;
+        }
+        .enroll-class{
+            position: absolute;
+            right: 230px;
+            top: 25px;
+        }
+        .className{
+            position: absolute;
+            right: 300px;
+            top: 19px;
+        }
+    </style>
+</head>
+
+<body>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light titley" style="background-color: #DCDCDC;">
+        <a class="navbar-brand bigbrand" href="/home/">DC</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        {% if user.is_authenticated %}
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto cus">
+               <div class="dropdown">
+                   <a class="nav-link dropdown-toggle avatar" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                        {{ user.username }}
+                   </a>
+                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                       <a class="dropdown-item" href="/home/">Profile</a>
+                       <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                   </div>
+               </div>
+                <div class="enroll-class">
+                    <a href="/classes/middle/">
+                        <ion-icon name="add-circle"></ion-icon>
+                    </a>
+                </div>
+                {% if current in current_class %}
+                <div class="className">
+                    <p>
+                        {{ current.className }}
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </nav>
+    <!--Body Block-->
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="blog_posts">
+
+                    {% block body_block %}
+
+                    {% endblock body_block %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/ionicons@4.2.4/dist/ionicons.js"></script>
+    {% block script_block %} {% endblock script_block %}
+</body>
+

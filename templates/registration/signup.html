@@ -1,0 +1,41 @@
+{% extends "DC/base2.html" %}
+
+{% block title_block %}
+    Sign Up
+{% endblock title_block %}
+
+{% block body_block %}
+
+<style>
+    .container-form{
+        position: absolute;
+        left: 500px;
+        width: 400px;
+        box-shadow: 0 0.2rem 0.4rem rgba(0,0,0,0.23);
+    }
+</style>
+
+<br><br><br><br>
+<div class="container-form">
+        <div class="card fold mx-auto reg">
+                <div class="card-body">
+                        {{ user_profile.as_p }}
+
+                                <form method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                                {% csrf_token %}
+                                                {% for field in user_form.visible_fields %}
+                                                        <div class="form-group">
+                                                                {{ field.label_tag }} 
+                                                                {{ field }}
+                                                                <small class="form-text">{{ field.help_text }}</small>
+                                                        </div>
+                                                {% endfor %}
+                                                <input type="submit" class="form-control btn btn-success" value="Sign Up" />
+                                                <small class="form-text">Already registered? <a href="{% url 'login' %}" style="padding:0% !important;">Log In</a></small> 
+                                        </div>
+                                </form>
+                </div>
+        </div>
+</div>
+{% endblock body_block %}

@@ -1,0 +1,9 @@
+{% if users_enrolled %}
+<h5 class="card-title">Enrolled Students</h5>
+<p class="card-text">The class {{current_class.className}} has {{ users_enrolled }} students</p>
+<a href="#" class="btn btn-primary">View Details</a>
+{% else %}
+<h5 class="card-title">Class Resources</h5>
+<p class="card-text">The class {{current_class.className}} has {{ class_posts}} posts and {{ class_resources }} resources</p>
+<a href="#" class="btn btn-primary">View Details</a>
+{% endif %}

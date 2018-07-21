@@ -1,0 +1,6 @@
+# Migrations
+migrations/
+
+# Pychache Folder
+*.pyc
+__pycache__/

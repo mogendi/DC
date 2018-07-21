@@ -1,0 +1,103 @@
+{% if class_posts %}
+  {% for post in class_posts %}
+    <div class="card bg-light mb-3" style="" >
+        <div class="card-header">
+          <ion-icon name="paper"></ion-icon>
+            {{ post.title }}
+        </div>
+        {% autoescape off %}
+        <div class="card-body">
+        <blockquote class="blockquote mb-0">
+          <p>{{ post.text}}</p>
+            {% if author or creator %}
+            <div class="btn-container">
+                <a href="{% url 'delete' post.id %}" postid="{{ post.id }}">
+                    <ion-icon name="Trash"></ion-icon>
+                </a>
+            </div>
+            {% endif %}
+        </blockquote>
+        </div>
+        {% endautoescape %}
+    </div>
+  {% endfor %}
+{% elif result_posts %}
+{% for post in result_posts %}
+    <div class="card bg-light mb-3" style="" >
+    <div class="card-header">
+      <ion-icon name="paper"></ion-icon>
+        {{ post.title }}
+    </div>
+    {% autoescape off %}
+    <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>{{ post.text}}</p>
+        {% if author or creator %}
+        <div class="btn-container">
+            <a href="{% url 'delete' post.id %}" postid="{{ post.id }}">
+                <ion-icon name="Trash"></ion-icon>
+            </a>
+        </div>
+        {% endif %}
+    </blockquote>
+    </div>
+    {% endautoescape %}
+</div>
+{% endfor %}
+{% else %}
+{% endif %}
+
+{% if class_resources %}
+  {% for rscs in class_resources %}
+    <div class="card bg-light mb-3" style="" >
+      <div class="card-header">
+          <ion-icon name="folder"></ion-icon>
+        {{ rscs.name }}
+      </div>
+      <div class="card-body">
+        <blockquote class="blockquote mb-0">
+          <p>{{ rscs.description }}</p>
+        <div class="btn-container2">
+          <a href="{{ rscs.file.url }}" class="resourcelink2" resourceid="{{ rscs.slug }}">
+              <ion-icon name="download"></ion-icon>
+          </a>
+        {% if owner or creator %}
+        <div class="btn-container3">
+          <a href="{% url 'delete_resource' rscs.slug %}" class="resourcelink3" resourceid="{{ rscs.slug }}">
+              <ion-icon name="trash"></ion-icon>
+          </a>
+        </div>
+        {% endif %}
+        </div>
+        </blockquote>
+      </div>
+    </div>
+  {% endfor %}
+{% elif result_resources %}
+  {% for rscs in result_resources %}
+    <div class="card bg-light mb-3" style="" >
+      <div class="card-header">
+          <ion-icon name="folder"></ion-icon>
+        {{ rscs.name }}
+      </div>
+      <div class="card-body">
+        <blockquote class="blockquote mb-0">
+          <p>{{ rscs.description }}</p>
+        <div class="btn-container2">
+          <a href="{{ rscs.file.url }}" class="resourcelink2" resourceid="{{ rscs.slug }}">
+              <ion-icon name="download"></ion-icon>
+          </a>
+        {% if owner or creator %}
+        <div class="btn-container3">
+          <a href="{% url 'delete_resource' rscs.slug %}" class="resourcelink3" resourceid="{{ rscs.slug }}">
+              <ion-icon name="trash"></ion-icon>
+          </a>
+        </div>
+        {% endif %}
+        </div>
+        </blockquote>
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+{% endif %}

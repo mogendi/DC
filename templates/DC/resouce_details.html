@@ -1,0 +1,14 @@
+{% for cl in std_list %}
+    <div class="card">
+      <div class="card-header" style="text-align: center;">
+        {{cl.username}}
+      </div>
+      <div class="card-body">
+        <blockquote class="blockquote mb-0" style="font-size: 12px;">
+          <p>Number of posts: {{ user_posts_no}}<br>
+             Number of files: {{ user_files_no }}<br>
+             Number of classes enrolled: {{ user_classes_no }}</p>
+        </blockquote>
+      </div>
+    </div>
+{% endfor %}

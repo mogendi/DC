@@ -1,0 +1,16 @@
+{% extends "DC/base.html" %}
+
+{% block body_block %}
+<p>
+     <h1 class="titley loader"> {{ a_classes.className }} </h1>
+    {% if a_classes.class_enrolled %}
+        <div class="date postdate">
+         {% for post in u_classes %}
+                <li>post.username</li>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <p class="postcontent">{{ post.text|safe|linebreaksbr }}</p>
+</p>
+{%endblock body_block%}

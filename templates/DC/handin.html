@@ -1,0 +1,14 @@
+{% extends "DC/base.html" %}
+{% block body_block %}
+<br><br><br><br>
+<h1 class="titley">Submit assignment</h1>
+<form class="jumbotron" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary" name="button">Create</button>
+</form>
+<script>
+    var editor = new MediumEditor('.editable');
+</script>
+
+{% endblock body_block %}

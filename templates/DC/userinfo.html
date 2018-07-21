@@ -1,0 +1,26 @@
+<div>
+    <div class="card">
+      <div class="card-header" style="text-align: center;">
+        {{user.username}}
+      </div>
+      <div class="card-body">
+        <blockquote class="blockquote mb-0" style="font-size: 12px;">
+          <p>Number of posts: {{ user_posts_no}}<br>
+             Number of files: {{ user_files_no }}<br>
+             Number of classes enrolled: {{ user_classes_no }}</p>
+          <footer class="blockquote-footer"><a href="/accounts/password_reset/">Reset Password</a></footer>
+        </blockquote>
+      </div>
+    </div>
+</div>
+
+<script>
+    $('#btnshow2').click(
+            function(){
+                $("#toggleview3").toggle();
+            })
+    $('#btnshow3').click(
+            function(){
+                $("#toggleview5").toggle();
+            })
+</script>

@@ -1,0 +1,38 @@
+{% extends 'DC/base2.html' %}
+
+{% block title_block %}
+    Login
+{% endblock title_block %}
+
+{% block body_block %}
+<style>
+    .container-form{
+        position: absolute;
+        left: 500px;
+        width: 400px;
+        box-shadow: 0 0.2rem 0.4rem rgba(0,0,0,0.23);
+    }
+</style>
+<br><br><br><br>
+<div class="container-form">
+    <div class="jumbotron">
+        <h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please Login:</h2><br>
+
+        {% if form.errors %}
+            <p>Username or Password is incorrect</p>
+        {% endif %}
+
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+        &nbsp;&nbsp;
+            <input type="submit" class="btn btn-primary" value="Log In"><br><br>
+            <a href="{% url 'create_user' %}" class="btn btn-primary">Create User</a><br>
+            &nbsp;&nbsp;<input type="hidden" name="next" value="{{next}}">
+            <a href="{% url 'Reset' %}">Forgot Password</a>
+        </form>
+
+
+    </div>
+</div>
+{% endblock body_block %}

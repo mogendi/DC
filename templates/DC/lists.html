@@ -1,0 +1,18 @@
+{% if class_resources %}
+        {% for rscs in class_resources %}
+            {% autoescape off %}
+            <a href="#" class="resourcelink" resourceid="{{ rscs.slug }}">
+                {{ rscs.name }}
+            </a>
+            {% endautoescape %}
+        {% endfor %}
+    {% else %}
+        {% for rscs in  result_resources %}
+            {% autoescape off %}
+            <a href="#" class="resourcelink" resourceid="{{ rscs.slug }}">
+                {{ rscs.name }}
+            </a>
+            {% endautoescape %}
+        {% endfor %}
+    {% endif %}
+</div>
